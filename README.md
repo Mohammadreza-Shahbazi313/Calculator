@@ -4,7 +4,7 @@ A **simple yet elegant calculator** built with pure **HTML, CSS, and JavaScript*
 This project is designed as a **foundational version** before moving into modular and modern UI enhancements (Glassmorphism version coming soon ✨).
 
 ---
-## 🚀 Live Demo (Optional)
+## 🚀 Live Demo
 If deployed via **GitHub Pages**, add your live link here:
 
 🔗 https://Mohammadreza-Shahbazi313.github.io/Calculator/
