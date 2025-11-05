@@ -4,14 +4,10 @@ A **simple yet elegant calculator** built with pure **HTML, CSS, and JavaScript*
 This project is designed as a **foundational version** before moving into modular and modern UI enhancements (Glassmorphism version coming soon ✨).
 
 ---
-
-## 📸 Preview
-
----
-
 ## 🚀 Live Demo (Optional)
-If deployed via **GitHub Pages**, [add your live link here](https://Mohammadreza-Shahbazi313.github.io/calculator/)
+If deployed via **GitHub Pages**, add your live link here:
 
+🔗 https://Mohammadreza-Shahbazi313.github.io/Calculator/
 ---
 
 ## 🧱 Project Structure
@@ -54,7 +50,11 @@ git clone https://github.com/Mohammadreza-Shahbazi313/Calculator.git
 
 # 2. Navigate into the project folder
 cd Calculator
----
+
+# 3. Open in your browser
+start index.html  # (on Windows)
+open index.html   # (on macOS)
+
 ```
 
 ## 👨‍💻 Author
@@ -68,7 +68,5 @@ cd Calculator
 
 > _“Keep coding. Keep growing.”_ 💻🌿
 
-# 3. Open in your browser
-start index.html  # (on Windows)
-open index.html   # (on macOS)
+
 
