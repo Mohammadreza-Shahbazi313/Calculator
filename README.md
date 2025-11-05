@@ -55,7 +55,7 @@ git clone https://github.com/Mohammadreza-Shahbazi313/Calculator.git
 # 2. Navigate into the project folder
 cd Calculator
 ---
----
+```
 
 ## 👨‍💻 Author
 
