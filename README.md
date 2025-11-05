@@ -54,6 +54,19 @@ git clone https://github.com/Mohammadreza-Shahbazi313/Calculator.git
 
 # 2. Navigate into the project folder
 cd Calculator
+---
+---
+
+## 👨‍💻 Author
+
+**Mohammadreza Shahbazi (M.SH)**  
+📧 [eminemengland2000@gmail.com](mailto:eminemengland2000@gmail.com)  
+🌐 [LinkedIn](https://www.linkedin.com/in/mohammadreza-shahbazi-313sh/)  
+💬 [Telegram](https://t.me/STANsoSAD)
+
+---
+
+> _“Keep coding. Keep growing.”_ 💻🌿
 
 # 3. Open in your browser
 start index.html  # (on Windows)
