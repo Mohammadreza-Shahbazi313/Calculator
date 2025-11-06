@@ -5,9 +5,8 @@ This project is designed as a **foundational version** before moving into modula
 
 ---
 ## 🚀 Live Demo
-If deployed via **GitHub Pages**, add your live link here:
-
-🔗 https://Mohammadreza-Shahbazi313.github.io/Calculator/
+Experience it live on **GitHub Pages** 👇  
+👉 [**Open Calculator**](https://Mohammadreza-Shahbazi313.github.io/Calculator/)
 ---
 
 ## 🧱 Project Structure
@@ -67,6 +66,6 @@ open index.html   # (on macOS)
 ---
 
 > _“Keep coding. Keep growing.”_ 💻🌿
-
+© 2025 Mohammadreza Shahbazi (M.SH) — All rights reserved.
 
 
