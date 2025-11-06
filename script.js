@@ -1,3 +1,13 @@
+// ============================================================
+//  Project: Simple Calculator (v1.0)
+//  Author: Mohammadreza Shahbazi (M.SH)
+//  GitHub: https://github.com/Mohammadreza-Shahbazi-313
+//  LinkedIn: https://www.linkedin.com/in/mohammadreza-shahbazi-313sh/
+//  Telegram: https://t.me/STANsoSAD
+//  Email: eminemengland2000@gmail.com
+//  Year: 2025
+// ============================================================
+
 let currentInput = '';
 let operation = '';
 let firstOperand = null;
