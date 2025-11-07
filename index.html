@@ -15,14 +15,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>calculator</title>
+  
+  <!-- Link to external CSS stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <!-- =========================
+       Calculator Main Container
+       ========================= -->
   <div class="calculator">
+    <!-- Project Title -->
     <h1>calculator</h1>
+    <!-- Display screen (read-only to prevent manual input) -->
     <input type="text" id="display" placeholder="Number or operation" readonly />
-
+    <!-- =========================
+     Number Buttons Section
+     ========================= -->
     <div class="button-container">
       <button onclick="appendNumber(7)">7</button>
       <button onclick="appendNumber(8)">8</button>
@@ -33,10 +42,14 @@
       <button onclick="appendNumber(1)">1</button>
       <button onclick="appendNumber(2)">2</button>
       <button onclick="appendNumber(3)">3</button>
+            <!-- Clear button -->
       <button onclick="clearDisplay()">C</button>
+       <!-- Zero -->
       <button onclick="appendNumber(0)">0</button>
     </div>
-
+      <!-- =========================
+       Operator Buttons Section
+       ========================= -->
     <div class="button-container">
       <button class="operator" onclick="setOperation('+')">+</button>
       <button class="operator" onclick="setOperation('-')">-</button>
@@ -44,15 +57,17 @@
       <br>
       <button class="operator" onclick="setOperation('/')">/</button>
     </div>
-
+    <!-- =========================
+         Calculate Button
+         ========================= -->
     <div class="button-container">
       <br>
       <button onclick="calculate()">calculate</button>
     </div>
-
+        <!-- Result Output -->
     <div id="result"></div>
   </div>
-
+ <!-- Link to main JavaScript file -->
   <script src="script.js"></script>
 </body>
 </html>
