@@ -7,7 +7,7 @@
    Email: eminemengland2000@gmail.com
    Year: 2025
    ============================================================ */
-
+/* ----- Global Layout ----- */
 body {
   font-family: cursive;
   background-color: #a6ac03;
@@ -16,7 +16,7 @@ body {
   align-items: center;
   height: 97vh;
 }
-
+/* ----- Calculator Container ----- */
 .calculator {
   font-family: cursive;
   background-color: #ffffff;
@@ -26,7 +26,7 @@ body {
   text-align: center;
   width: 330px;
 }
-
+/* ----- Display Screen ----- */
 #display {
   font-family: cursive;
   background-color: #c7c7c7;
@@ -38,14 +38,14 @@ body {
   margin-bottom: 20px;
   text-align: right;
 }
-
+/* ----- Button Container Grid ----- */
 .button-container {
   font-family: cursive;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-
+/* ----- General Button Styles ----- */
 button {
   margin-bottom: 10px;
   font-family: cursive;
@@ -58,22 +58,22 @@ button {
   background-color: #007bff;
   color: white;
 }
-
+/* ----- Button Hover Effect ----- */
 button:hover {
   background-color: #0056b3;
   transform: scale(1.1);
 }
-
+/* ----- Operator Button Styles ----- */
 .operator {
   margin-bottom: 15px;
   font-family: cursive;
   background-color: #28a745;
 }
-
+/* ----- Operator Hover Effect ----- */
 .operator:hover {
   background-color: #218838;
 }
-
+/* ----- Result Section ----- */
 #result {
   font-family: cursive;
   margin-top: 15px;
