@@ -16,22 +16,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Glass Calculator</title>
+
+  <!-- Linking external CSS for styling the calculator -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Linking Google Fonts (Poppins) for the font styling -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Main container for the calculator -->
   <div class="calculator">
+  
+    <!-- Display area for showing numbers and operations -->
     <div class="display-container">
-      <div id="preview" class="preview"></div>
-      <input id="display" type="text" class="display" readonly />
+      <div id="preview" class="preview"></div> <!-- Shows the current operation preview -->
+      <input id="display" type="text" class="display" readonly /> <!-- Input field showing current input or result -->
     </div>
 
+    <!-- Keypad with all calculator buttons -->
     <div class="keys" id="keys">
+      <!-- Function buttons (clear, delete, percent) -->
       <button class="btn function" data-action="clear">C</button>
       <button class="btn function" data-action="delete">⌫</button>
       <button class="btn function" data-action="percent">%</button>
       <button class="btn operator" data-operation="/">÷</button>
 
+      <!-- Number buttons -->
       <button class="btn number">7</button>
       <button class="btn number">8</button>
       <button class="btn number">9</button>
@@ -47,11 +57,18 @@
       <button class="btn number">3</button>
       <button class="btn operator" data-operation="+">+</button>
 
+      <!-- Special button for zero, spans across two columns -->
       <button class="btn number zero">0</button>
+
+      <!-- Decimal point button -->
       <button class="btn number">.</button>
+
+      <!-- Equals button to perform calculation -->
       <button class="btn equals" data-action="equals">=</button>
     </div>
   </div>
+  
+  <!-- Linking the JavaScript file that handles the calculator logic -->
   <script src="script.js"></script>
 </body>
 </html>
