@@ -8,106 +8,165 @@
    Year: 2025
    ============================================================ */
 
+/* ========================
+   Global Color and Font Variables
+   ======================== */
+
+/* Background gradient for the body */
 :root {
-  --bg-gradient: linear-gradient(135deg, #7f5a83, #0d324d);
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --border-color: rgba(255, 255, 255, 0.25);
-  --text-color: #ffffff;
-  --accent: #00d4ff;
+  --bg-gradient: linear-gradient(135deg, #7f5a83, #0d324d); /* A diagonal gradient with a mix of purple and blue shades */
+  --glass-bg: rgba(255, 255, 255, 0.15); /* Transparent background with slight opacity to create the glass effect */
+  --border-color: rgba(255, 255, 255, 0.25); /* Light border color to define container edges */
+  --text-color: #ffffff; /* Text color for readability */
+  --accent: #00d4ff; /* Accent color for buttons like equals */
 }
 
+/* =========================
+   Universal Styles for All Elements
+   ========================= */
+
+/* Ensure all elements are correctly sized and use the same font */
 * {
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box; /* Ensures consistent padding and border handling */
+  font-family: 'Poppins', sans-serif; /* Modern font for clean look */
 }
 
+/* =========================
+   Body Setup and Centering
+   ========================= */
+
+/* Full viewport height and center alignment for the calculator */
 body {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  background: var(--bg-gradient);
-  color: var(--text-color);
+  height: 100vh; /* Full screen height */
+  display: flex; /* Flexbox to center the content */
+  align-items: center; /* Vertically center */
+  justify-content: center; /* Horizontally center */
+  margin: 0; /* Remove default margins */
+  background: var(--bg-gradient); /* Gradient background */
+  color: var(--text-color); /* White text color */
 }
 
+/* =========================
+   Calculator Container
+   ========================= */
+
+/* Calculator main container with glass effect */
 .calculator {
-  width: 350px;
-  padding: 20px;
-  border-radius: 20px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(15px);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+  width: 350px; /* Fixed width for the calculator */
+  padding: 20px; /* Inner padding */
+  border-radius: 20px; /* Rounded corners */
+  background: var(--glass-bg); /* Glassy semi-transparent background */
+  backdrop-filter: blur(15px); /* Apply blur to the background */
+  border: 1px solid var(--border-color); /* Border color for definition */
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3); /* Soft shadow to lift the container */
 }
 
+/* =========================
+   Display Section
+   ========================= */
+
+/* Display area to show numbers and operations */
 .display-container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-bottom: 20px;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: flex-end; /* Align content to the right */
+  margin-bottom: 20px; /* Margin below display */
 }
 
+/* Preview area for showing ongoing operations */
 .preview {
-  min-height: 24px;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  min-height: 24px; /* Minimum height for the preview */
+  font-size: 0.9rem; /* Slightly smaller text for preview */
+  color: rgba(255, 255, 255, 0.7); /* Lighter text for the preview */
 }
 
+/* Display input area for the numbers */
 .display {
-  width: 100%;
-  font-size: 2rem;
-  padding: 10px;
-  border: none;
-  background: transparent;
-  color: var(--text-color);
-  text-align: right;
-  outline: none;
+  width: 100%; /* Take full width */
+  font-size: 2rem; /* Large text size for readability */
+  padding: 10px; /* Padding for input */
+  border: none; /* No border for the display */
+  background: transparent; /* Transparent background */
+  color: var(--text-color); /* White text color */
+  text-align: right; /* Align text to the right */
+  outline: none; /* Remove outline on focus */
 }
 
+/* =========================
+   Keypad Section
+   ========================= */
+
+/* Grid for the calculator buttons */
 .keys {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  display: grid; /* Use grid layout for buttons */
+  grid-template-columns: repeat(4, 1fr); /* Four equal columns for the keypad */
+  gap: 12px; /* Space between the buttons */
 }
 
+/* =========================
+   Button Styling
+   ========================= */
+
+/* Base style for all buttons */
 .btn {
-  padding: 14px 0;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 12px;
-  background: var(--glass-bg);
-  color: var(--text-color);
-  cursor: pointer;
-  border: 1px solid var(--border-color);
-  transition: all 0.15s ease;
-  backdrop-filter: blur(8px);
+  padding: 14px 0; /* Vertical padding */
+  font-size: 1.2rem; /* Slightly larger font size */
+  border: none; /* No border for buttons */
+  border-radius: 12px; /* Rounded corners for buttons */
+  background: var(--glass-bg); /* Glass effect for the buttons */
+  color: var(--text-color); /* White text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  border: 1px solid var(--border-color); /* Light border around buttons */
+  transition: all 0.15s ease; /* Smooth transition for hover and active effects */
+  backdrop-filter: blur(8px); /* Blur background behind buttons */
 }
 
+/* Button hover effect to create an interactive feel */
 .btn:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.25); /* Lighter background on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
+/* Button active effect when clicked */
 .btn:active {
-  transform: scale(0.97);
+  transform: scale(0.97); /* Slight shrink effect on click */
 }
 
+/* =========================
+   Operator Button Styles
+   ========================= */
+
+/* Special style for operator buttons (+, -, *, /) */
 .operator {
-  background: rgba(0, 212, 255, 0.25);
+  background: rgba(0, 212, 255, 0.25); /* Light cyan background */
 }
 
+/* =========================
+   Function Button Styles
+   ========================= */
+
+/* Special style for function buttons like clear, delete */
 .function {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* Light transparent background */
 }
 
+/* =========================
+   Equals Button Style
+   ========================= */
+
+/* Styling for the equals button */
 .equals {
-  grid-column: span 1;
-  background: var(--accent);
-  color: #000;
-  font-weight: 600;
+  grid-column: span 1; /* Span 1 column */
+  background: var(--accent); /* Use the accent color */
+  color: #000; /* Black text for better contrast */
+  font-weight: 600; /* Bold font for emphasis */
 }
 
+/* =========================
+   Zero Button Styling
+   ========================= */
+
+/* Special styling for the zero button to span across two columns */
 .zero {
-  grid-column: span 2;
+  grid-column: span 2; /* Span across two columns */
 }
