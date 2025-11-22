@@ -5,7 +5,7 @@ This project is designed as a **foundational version** before moving into modula
 
 ---
 ## 🚀 Live Demo
-Experience it live on **GitHub Pages** 👇  
+Experience it live on **GitHub Pages** 
 👉 [**Open Calculator**](https://Mohammadreza-Shahbazi313.github.io/Calculator/)
 ---
 
