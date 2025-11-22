@@ -1,7 +1,7 @@
 # 🧮 Calculator Project (HTML, CSS, JavaScript)
 
 A **simple yet elegant calculator** built with pure **HTML, CSS, and JavaScript**.  
-This project is designed as a **foundational version** before moving into modular and modern UI enhancements (Glassmorphism version coming soon ✨).
+This project is designed as a **foundational version** before moving into modular and modern UI enhancements (Glassmorphism version coming soon ✨)
 
 ---
 ## 🚀 Live Demo
