@@ -80,3 +80,27 @@ button:hover {
   font-size: 28px;
   color: #333;
 }
+
+/* Button: Go to Version 2 */
+.v2-button-container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.v2-btn {
+  background-color: #ff8c00;
+  border: 2px solid #cc6d00;
+  font-size: 22px;
+  padding: 10px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s ease;
+}
+
+/* Hover effect */
+.v2-btn:hover {
+  background-color: #cc7000;
+  transform: scale(1.1);
+}
+
