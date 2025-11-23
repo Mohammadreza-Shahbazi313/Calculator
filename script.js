@@ -13,13 +13,16 @@ let currentInput = '';   // Stores the current number being typed
 let operation = '';      // Stores the current operator (+, -, *, /)
 let firstOperand = null; // Stores the first operand in a calculation
 
+// --- NEW STATE: Full expression handling ---
+let expression = "";  // stores full typed expression
+
 // ------------------------------------------------------------
 // Function: appendNumber()
 // Purpose : Adds a digit to the current input and updates the display
 // ------------------------------------------------------------
 function appendNumber(number) {
-  currentInput += number.toString(); // Convert number to string and append
-  document.getElementById('display').value = currentInput; // Update the UI
+  expression += number.toString();
+  document.getElementById('display').value = expression;
 }
 
 // ------------------------------------------------------------
@@ -29,55 +32,37 @@ function appendNumber(number) {
 function setOperation(op) {
   if (currentInput === '') return; // Ignore if no input
 
-  if (firstOperand === null) {
-    // First number in the operation
-    firstOperand = parseFloat(currentInput);
-  } else {
-    // If already have a first operand, calculate first
-    calculate();
+function setOperation(op) {
+  if (expression === "") return;
+  const lastChar = expression[expression.length - 1];
+
+  // Prevent double operators (e.g., 5++6)
+  if (["+", "-", "*", "/"].includes(lastChar)) {
+    expression = expression.slice(1);
   }
 
-  // Store the selected operation and reset input for next number
-  operation = op;
-  currentInput = '';
+  expression += op;
+  document.getElementById('display').value = expression;
 }
 
 // ------------------------------------------------------------
 // Function: calculate()
 // Purpose : Performs the selected operation between two operands
 // ------------------------------------------------------------
+
 function calculate() {
-  if (firstOperand === null || currentInput === '') return;
+  if (expression === "") return;
 
-  const secondOperand = parseFloat(currentInput);
-  let result;
+  try {
+    // Safe evaluation using Function()
+    const result = Function("return " + expression)();
+    document.getElementById("result").innerText = "Result: " + result;
+    expression = result.toString();
+    document.getElementById("display").value = expression;
 
-  // Perform calculation based on selected operator
-  switch (operation) {
-    case '+':
-      result = firstOperand + secondOperand;
-      break;
-    case '-':
-      result = firstOperand - secondOperand;
-      break;
-    case '*':
-      result = firstOperand * secondOperand;
-      break;
-    case '/':
-      // Prevent division by zero
-      result = secondOperand !== 0
-        ? firstOperand / secondOperand
-        : 'Division by zero is not possible.';
-      break;
-    default:
-      return;
+  } catch (err) {
+    document.getElementById("result").innerText = "Error in expression";
   }
-
-  // Display result in the UI
-  document.getElementById('result').innerText = 'Result: ' + result;
-
-  // Reset calculator for next operation
-  resetCalculator();
 }
 
 // ------------------------------------------------------------
@@ -85,11 +70,10 @@ function calculate() {
 // Purpose : Clears both display and result output
 // ------------------------------------------------------------
 function clearDisplay() {
-  resetCalculator();
-  document.getElementById('display').value = '';
-  document.getElementById('result').innerText = '';
+  expression = "";
+  document.getElementById("display").value = "";
+  document.getElementById("result").innerText = "";
 }
-
 // ------------------------------------------------------------
 // Function: resetCalculator()
 // Purpose : Resets all stored values to their initial state
