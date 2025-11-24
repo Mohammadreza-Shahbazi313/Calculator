@@ -298,6 +298,7 @@ function deleteLast() {
   updateDisplay();
 }
 
+
 // Percent: convert last number token to its percent (divide by 100)
 // Example: "200+50" -> press % -> "200+0.5"
 function percent() {
