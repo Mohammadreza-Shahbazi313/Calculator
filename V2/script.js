@@ -8,122 +8,235 @@
 //  Year: 2025
 // ============================================================
 
-// Initialize variables to store current input, first operand, and operation
-let currentInput = ''; // Holds the input value from user
-let firstOperand = null; // First operand for operations (e.g., number before +, -, etc.)
-let operation = null; // Stores the current operation (+, -, *, /)
+let expression = "";
 
-// Get references to the display elements and keys
-const display = document.getElementById('display');
-const preview = document.getElementById('preview');
-const keys = document.getElementById('keys');
+const display = document.getElementById("display");
+const preview = document.getElementById("preview");
 
-// Function to update the display with the current input and operation preview
+// ------------------------- Display Helpers -------------------------
 function updateDisplay() {
-  display.value = currentInput || '0'; // Show current input or default to 0 if empty
-  preview.textContent = firstOperand !== null && operation ? `${firstOperand} ${operation}` : ''; // Show operation preview
+  display.value = expression || "0";
+  preview.textContent = expression;
 }
 
-// Function to append a number or character to the current input
+// ------------------------- Number Input -------------------------
 function appendNumber(char) {
-  // Prevent adding multiple decimal points or leading zeros
-  if (char === '.' && currentInput.includes('.')) return;
-  if (char === '0' && currentInput === '0') return;
-  
-  // Append the character to the current input
-  currentInput += char;
-  updateDisplay(); // Update the display with the new input
+  const ch = String(char);
+
+  // Prevent multiple dots in same number
+  if (ch === ".") {
+    const lastToken = expression.split(/[\+\-\*\/\(\)]/).pop();
+    if (lastToken.includes(".")) return;
+    if (lastToken === "") expression += "0";
+  }
+
+  expression += ch;
+  updateDisplay();
 }
 
-// Function to set the selected operation (+, -, *, /)
+// ------------------------- Operator Input -------------------------
 function setOperation(op) {
-  if (currentInput === '' && firstOperand === null) return; // Prevent setting operation without input
-  if (firstOperand === null) {
-    firstOperand = parseFloat(currentInput); // Set the first operand when it's null
-  } else if (currentInput !== '') {
-    compute(); // Compute the result if there is already an operand
-  }
-  
-  operation = op; // Store the current operation
-  currentInput = ''; // Clear the current input for the next number
-  updateDisplay(); // Update the display
-}
+  if (!['+', '-', '*', '/'].includes(op)) return;
 
-// Function to perform the calculation based on the selected operation
-function compute() {
-  if (operation === null || firstOperand === null || currentInput === '') return; // Validate inputs before computing
-  const second = parseFloat(currentInput); // Get the second operand
-  let result;
-
-  // Perform the corresponding operation based on the selected operator
-  switch (operation) {
-    case '+': result = firstOperand + second; break;
-    case '-': result = firstOperand - second; break;
-    case '*': result = firstOperand * second; break;
-    case '/': result = second !== 0 ? firstOperand / second : 'Error'; break; // Handle division by zero
-    default: return;
+  if (expression === "") {
+    if (op === "-") expression = "-"; // unary minus
+    updateDisplay();
+    return;
   }
 
-  // If the result is valid, round it and reset the operation
-  if (typeof result === 'number') {
-    result = Math.round((result + Number.EPSILON) * 100000000) / 100000000; // Round to prevent floating point errors
-    currentInput = result.toString(); // Set result as the current input
-    firstOperand = null; // Reset the first operand
-    operation = null; // Reset the operation
+  const last = expression[expression.length - 1];
+
+  if (['+', '-', '*', '/'].includes(last)) {
+    expression = expression.slice(0, -1) + op;
   } else {
-    currentInput = ''; // If there's an error, reset everything
-    firstOperand = null;
-    operation = null;
+    expression += op;
   }
-  updateDisplay(); // Update the display with the result
+
+  updateDisplay();
 }
 
-// Function to clear all inputs and reset the calculator
+// ------------------------- Tokenizer -------------------------
+function tokenize(input) {
+  const tokens = [];
+  const s = input.replace(/\s+/g, "");
+  let i = 0;
+
+  while (i < s.length) {
+    const ch = s[i];
+
+    // number
+    if ((ch >= "0" && ch <= "9") || ch === ".") {
+      let num = ch;
+      i++;
+      while (i < s.length && ((s[i] >= "0" && s[i] <= "9") || s[i] === ".")) {
+        num += s[i++];
+      }
+      tokens.push({ type: "NUMBER", value: num });
+      continue;
+    }
+
+    // parentheses
+    if (ch === "(") {
+      tokens.push({ type: "LPAREN", value: "(" });
+      i++;
+      continue;
+    }
+    if (ch === ")") {
+      tokens.push({ type: "RPAREN", value: ")" });
+      i++;
+      continue;
+    }
+
+    // operators
+    if (['+', '-', '*', '/'].includes(ch)) {
+      // unary minus
+      if (ch === "-") {
+        const prev = tokens.length ? tokens[tokens.length - 1] : null;
+        if (!prev || prev.type === "OP" || prev.type === "LPAREN") {
+          let j = i + 1;
+          let num = "-";
+          if (j < s.length && ((s[j] >= "0" && s[j] <= "9") || s[j] === ".")) {
+            while (j < s.length && ((s[j] >= "0" && s[j] <= "9") || s[j] === ".")) {
+              num += s[j++];
+            }
+            tokens.push({ type: "NUMBER", value: num });
+            i = j;
+            continue;
+          }
+        }
+      }
+      tokens.push({ type: "OP", value: ch });
+      i++;
+      continue;
+    }
+
+    throw new Error("Invalid character: " + ch);
+  }
+  return tokens;
+}
+
+// ------------------------- Shunting Yard -------------------------
+function infixToRPN(tokens) {
+  const out = [];
+  const stack = [];
+  const prec = { "+": 1, "-": 1, "*": 2, "/": 2 };
+
+  for (const t of tokens) {
+    if (t.type === "NUMBER") {
+      out.push(t);
+    } else if (t.type === "OP") {
+      while (stack.length) {
+        const top = stack[stack.length - 1];
+        if (top.type === "OP" && prec[top.value] >= prec[t.value]) {
+          out.push(stack.pop());
+        } else break;
+      }
+      stack.push(t);
+    } else if (t.type === "LPAREN") {
+      stack.push(t);
+    } else if (t.type === "RPAREN") {
+      while (stack.length && stack[stack.length - 1].type !== "LPAREN") {
+        out.push(stack.pop());
+      }
+      if (!stack.length) throw new Error("Mismatched parentheses");
+      stack.pop();
+    }
+  }
+
+  while (stack.length) {
+    const t = stack.pop();
+    if (t.type === "LPAREN") throw new Error("Mismatched parentheses");
+    out.push(t);
+  }
+  return out;
+}
+
+// ------------------------- RPN Evaluation -------------------------
+function evalRPN(rpn) {
+  const s = [];
+  for (const t of rpn) {
+    if (t.type === "NUMBER") {
+      s.push(Number(t.value));
+    } else if (t.type === "OP") {
+      const b = s.pop();
+      const a = s.pop();
+      let res;
+      switch (t.value) {
+        case "+": res = a + b; break;
+        case "-": res = a - b; break;
+        case "*": res = a * b; break;
+        case "/":
+          if (b === 0) throw new Error("Cannot divide by zero");
+          res = a / b;
+          break;
+      }
+      s.push(res);
+    }
+  }
+  return s[0];
+}
+
+// ------------------------- Main Calculate -------------------------
+function calculate() {
+  if (!expression) return;
+
+  try {
+    const tokens = tokenize(expression);
+    const rpn = infixToRPN(tokens);
+    let result = evalRPN(rpn);
+
+    result = Math.round((result + Number.EPSILON) * 1e10) / 1e10;
+
+    expression = String(result);
+    updateDisplay();
+
+  } catch (e) {
+    preview.textContent = "Error";
+  }
+}
+
+// ------------------------- Clear -------------------------
 function clearAll() {
-  currentInput = '';
-  firstOperand = null;
-  operation = null;
-  updateDisplay(); // Update the display to show 0
+  expression = "";
+  updateDisplay();
 }
 
-// Function to delete the last character from the input
+// ------------------------- Delete -------------------------
 function deleteLast() {
-  currentInput = currentInput.slice(0, -1); // Remove the last character
-  updateDisplay(); // Update the display after deletion
+  expression = expression.slice(0, -1);
+  updateDisplay();
 }
 
-// Function to calculate the percentage of the current input
+// ------------------------- Percent -------------------------
 function percent() {
-  if (!currentInput) return; // Return if no input is present
-  const num = parseFloat(currentInput); // Convert input to number
-  currentInput = (num / 100).toString(); // Convert the number to percentage
-  updateDisplay(); // Update the display with the new value
+  const m = expression.match(/([0-9.]+)$/);
+  if (!m) return;
+  const num = Number(m[1]) / 100;
+  expression = expression.slice(0, -m[1].length) + num;
+  updateDisplay();
 }
 
-// Event listener for mouse click on calculator buttons
-keys.addEventListener('click', (e) => {
-  const btn = e.target;
-  if (!btn.classList.contains('btn')) return; // Ensure the clicked element is a button
-  if (btn.classList.contains('number')) appendNumber(btn.textContent.trim()); // If a number button is clicked, append it
-  else if (btn.dataset.operation) setOperation(btn.dataset.operation); // If an operation button is clicked, set the operation
-  else {
-    const action = btn.dataset.action;
-    if (action === 'clear') clearAll(); // If clear button is clicked, reset the calculator
-    else if (action === 'delete') deleteLast(); // If delete button is clicked, delete the last character
-    else if (action === 'equals') compute(); // If equals button is clicked, perform the calculation
-    else if (action === 'percent') percent(); // If percent button is clicked, calculate percentage
-  }
+// ------------------------- Button Events -------------------------
+document.getElementById("keys").addEventListener("click", (e) => {
+  const b = e.target;
+  if (!b.classList.contains("btn")) return;
+
+  if (b.classList.contains("number")) appendNumber(b.textContent.trim());
+  else if (b.dataset.operation) setOperation(b.dataset.operation);
+  else if (b.dataset.action === "equals") calculate();
+  else if (b.dataset.action === "clear") clearAll();
+  else if (b.dataset.action === "delete") deleteLast();
+  else if (b.dataset.action === "percent") percent();
 });
 
-// Event listener for keyboard input to interact with the calculator
-window.addEventListener('keydown', (e) => {
-  if (e.key >= '0' && e.key <= '9') appendNumber(e.key); // If a number key is pressed, append the number
-  if (e.key === '.') appendNumber('.'); // If decimal key is pressed, append a decimal
-  if (['+', '-', '*', '/'].includes(e.key)) setOperation(e.key); // If an operator key is pressed, set the operation
-  if (e.key === 'Enter' || e.key === '=') compute(); // If enter or equals key is pressed, compute the result
-  if (e.key === 'Backspace') deleteLast(); // If backspace key is pressed, delete the last character
-  if (e.key === 'Escape') clearAll(); // If escape key is pressed, clear all inputs
+// ------------------------- Keyboard Support -------------------------
+window.addEventListener("keydown", (e) => {
+  if (e.key >= "0" && e.key <= "9") appendNumber(e.key);
+  if (e.key === ".") appendNumber(".");
+  if (['+', '-', '*', '/'].includes(e.key)) setOperation(e.key);
+  if (e.key === "Enter") calculate();
+  if (e.key === "Backspace") deleteLast();
+  if (e.key === "Escape") clearAll();
 });
 
-// Initialize the display with the default value
 updateDisplay();
