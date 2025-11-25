@@ -11,7 +11,7 @@ Experience it live on **GitHub Pages**
 ---
 
 ## 🧱 Project Structure
-
+```
 Calculator/
 ├── index.html        # Version 1 main file
 ├── styles.css        # Version 1 UI styles
@@ -21,9 +21,7 @@ Calculator/
     ├── index.html
     ├── style.css
     └── script.js
-
-
-
+```
 ---
 
 ## ⚙️ Features
