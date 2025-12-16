@@ -92,7 +92,7 @@ open index.html   # (on macOS)
 
 ---
 
-> _“Keep coding. Keep growing.”_ 💻🌿
+> _“Keep coding. Keep growing.”_ 💻
 © 2025 Mohammadreza Shahbazi (M.SH) — All rights reserved.
 
 
