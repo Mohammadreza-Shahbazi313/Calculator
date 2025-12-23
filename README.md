@@ -30,7 +30,7 @@ Calculator/
 ✅ Smooth button hover animation  
 ✅ Input display with read-only protection  
 ✅ Reset (C) button  
-✅ Clean and readable codebase — perfect for beginners  
+✅ Clean and readable codebase - perfect for beginners  
 
 ---
 
