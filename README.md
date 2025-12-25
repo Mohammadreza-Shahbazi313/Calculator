@@ -1,4 +1,4 @@
-# 🧮 Calculator Project.
+# 🧮 Calculator Project
 
 A clean, modern, and beginner-friendly calculator built using HTML, CSS, and JavaScript.
 This repository contains multiple versions of the calculator from a simple classic UI (v1) to an advanced Glassmorphism Calculator (v2) with a fully upgraded calculation engine.
