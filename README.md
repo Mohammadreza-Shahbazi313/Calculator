@@ -24,7 +24,7 @@ Calculator/
 ```
 ---
 
-## ⚙️ Features
+## ⚙️ Features:
 ✅ Basic arithmetic operations (+, −, ×, ÷)  
 ✅ Responsive centered layout  
 ✅ Smooth button hover animation  
