@@ -4,7 +4,7 @@ A clean, modern, and beginner-friendly calculator built using HTML, CSS, and Jav
 This repository contains multiple versions of the calculator from a simple classic UI (v1) to an advanced Glassmorphism Calculator (v2) with a fully upgraded calculation engine.
 
 ---
-## 🚀 Live Demo
+## 🚀 Demo
 Experience it live on **GitHub Pages** 
 
 👉 [**Open Calculator**](https://Mohammadreza-Shahbazi313.github.io/Calculator/)
