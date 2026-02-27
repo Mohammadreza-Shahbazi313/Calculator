@@ -8,6 +8,7 @@ This repository contains multiple versions of the calculator from a simple class
 Experience it live on **GitHub Pages** 
 
 👉 [**Open Calculator**](https://Mohammadreza-Shahbazi313.github.io/Calculator/)
+
 ---
 
 ## 🧱 Project Structure
